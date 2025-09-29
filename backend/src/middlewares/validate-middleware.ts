@@ -26,8 +26,8 @@ export const validateQuiz=(req:Request, res: Response, next:NextFunction): void=
     for (let i = 0; i < preguntas.length; i++) {
         const pregunta = preguntas[i];
         //Valido que haya un texto en pregunta, y que sea de tipo string
-        if (!pregunta.texto || typeof pregunta.texto !== 'string') {
-            res.status(400).json({ error: `Pregunta ${i + 1}: 'texto' is required and must be a string` });
+        if (!pregunta.pregunta || typeof pregunta.pregunta !== 'string') {
+            res.status(400).json({ error: `Pregunta ${i + 1}: 'pregunta' is required and must be a string` });
             return;
         }
         //Valido el campo imagen
@@ -42,8 +42,8 @@ export const validateQuiz=(req:Request, res: Response, next:NextFunction): void=
             return;
         }
         //Valido que haya una rtaCorrecta, que sea de tipo string y que este dentro de las opciones
-        if ( !pregunta.respuestaCorrecta || typeof pregunta.respuestaCorrecta !== 'string' ||
-        !pregunta.opciones.includes(pregunta.respuestaCorrecta)) {
+        if ( !pregunta.rtaCorrecta || typeof pregunta.rtaCorrecta !== 'string' ||
+        !pregunta.opciones.includes(pregunta.rtaCorrecta)) {
             res.status(400).json({ error: `Pregunta ${i + 1}: 'respuestaCorrecta' must be one of the provided options` });
             return;
         }

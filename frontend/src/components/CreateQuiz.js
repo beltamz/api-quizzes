@@ -25,7 +25,12 @@ export default function CreateQuiz({ token, onQuizCreated }) {
       setPreguntas([{ pregunta: "", imagen: "", opciones: ["", "", ""], rtaCorrecta: "" }]);
     } catch (err) {
       console.error(err);
-      setMensaje("Error al crear el quiz");
+
+      if (err.response && err.response.data && err.response.data.error) {
+      setMensaje(err.response.data.error);
+      } else {
+        setMensaje("Error al crear el quiz");
+      }
     }
   };
 

@@ -11,6 +11,7 @@ export default function Login({ setToken, setUser }) {
   const navigate = useNavigate();
   const [isDisabled, setIsDisabled] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
+  const [tipoMensaje, setTipoMensaje] = useState("success");
 
   // Si la sesion ya estaba iniciada, redirige a mis quizzes
   useEffect(() => {
@@ -51,15 +52,14 @@ export default function Login({ setToken, setUser }) {
 
       navigate("/quizzes");
     } catch (err) {
-      console.error(err);
-
-      if (err.response?.status === 429) { // demasiados intentos
-        setIsDisabled(true);
-        setTimeLeft(15 * 60); // 15 minutos en segundos
-        setMensaje("Demasiados intentos. Intente más tarde.");
-      } else {
-        setMensaje("Error al iniciar sesión");
-      }
+     console.error(err);
+  
+    if (err.response?.data?.error) {
+      setMensaje(err.response.data.error);
+    } else {
+      setMensaje("Error al iniciar sesión");
+    }
+    setTipoMensaje("error"); //Mensaje en rojo
     }
   };
 
@@ -140,20 +140,6 @@ export default function Login({ setToken, setUser }) {
           </Button>
         </form>
 
-        {mensaje && (
-          <Alert
-            severity={mensaje.startsWith("Error") ? "error" : "success"}
-            sx={{
-              mt: 3,
-              backgroundColor: mensaje.startsWith("Error") ? "#F94144" : "#90BE6D",
-              color: "#fff",
-              fontWeight: "bold",
-            }}
-          >
-            {mensaje}
-          </Alert>
-        )}
-
       {/*Boton para ir a la pagina de inicio */}
       <Button
         variant="outlined"
@@ -165,6 +151,20 @@ export default function Login({ setToken, setUser }) {
         Volver a inicio
       </Button>
 
+        {mensaje && (
+        <Alert
+          severity={tipoMensaje}
+          sx={{
+            mt: 3,
+            backgroundColor: tipoMensaje === "error" ? "#F94144" : "#90BE6D",
+            color: "#fff",
+            fontWeight: "bold",
+          }}
+        >
+          {mensaje}
+        </Alert>
+      )}
+  
       </Box>
     </Box>
   );

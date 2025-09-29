@@ -33,7 +33,7 @@ function Navbar({ token, user, setToken, setUser }) {
     <Typography variant="h6" sx={{ 
         color: "#FFF", fontFamily: "Comic Sans MS, cursive", fontWeight: "bold" 
     }}>
-      {user ? `Bienvenida/o, ${user.nombre}` : "Bienvenida"}
+      {user ? `Bienvenida/o, ${user.nombre} 👋`  : "Bienvenida"}
     </Typography>
 
     {/* Derecha */}

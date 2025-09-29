@@ -3,40 +3,49 @@ import { Request, Response } from 'express'
 import Quiz from '../models/quiz'
 
 //---Controlador para crear el quiz
-export const createQuiz= async (req: Request, res:Response)=>{
-    const {titulo,descripcion ,preguntas}= req.body;
+export const createQuiz = async (req: Request, res: Response) => {
+    const { titulo, descripcion, preguntas } = req.body;
 
-    if(!titulo ||!preguntas){
-        res.status(400).json({error: 'Complete the missing  field(s)'})
-        return
-    }
-
-    //Valido cada pregunta de mi array preguntas
-    for (const pregunta of preguntas) {
-        if (!pregunta.pregunta || !pregunta.opciones || pregunta.opciones.length < 2) {
-            res.status(400).json({ error: "Each question needs text and at least two options" });
-            return;
-        }
-
-        if (!pregunta.opciones.includes(pregunta.rtaCorrecta)) {
-        res.status(400).json({
-            error: `The correct answer "${pregunta.rtaCorrecta}" is not among the options in question "${pregunta.pregunta}"`,
-        });
+    if (!titulo || !preguntas) {
+        res.status(400).json({ error: 'Complete the missing field(s)' });
         return;
-        }
     }
 
     try {
         const creadorId = req.user.id;
+
+        //Valido cada pregunta
+        for (const pregunta of preguntas) {
+            if (!pregunta.pregunta || !pregunta.opciones || pregunta.opciones.length < 2) {
+                const error = new Error("Each question needs text and at least two options");
+                error.name = "ValidationError";
+                throw error;
+            }
+
+            if (!pregunta.opciones.includes(pregunta.rtaCorrecta)) {
+                const error = new Error(
+                    `The correct answer "${pregunta.rtaCorrecta}" is not among the options for question "${pregunta.pregunta}"`
+                );
+                error.name = "ValidationError";
+                throw error;
+            }
+        }
+
         const newQuiz = new Quiz({ titulo, descripcion, preguntas, creador: creadorId });
         await newQuiz.save();
 
         res.status(201).json({ message: 'Quiz created successfully' });
-    } catch (error) {
+
+    } catch (error: any) {
         console.error(error);
-        res.status(500).json({ error: "Error creating the quiz" });
+        if (error.name === "ValidationError") {
+            res.status(400).json({ error: error.message });
+        } else {
+            res.status(500).json({ error: "Unexpected error creating the quiz" });
+        }
     }
-}
+};
+
 
 //---Controlador para mostrar todos los quizzes
 export const getQuizzes = async (req: Request, res: Response)=>{
