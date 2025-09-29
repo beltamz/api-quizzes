@@ -11,12 +11,31 @@ export const createQuiz= async (req: Request, res:Response)=>{
         return
     }
 
-    //Obtengo el usuario que creo el quiz a traves del token
-    const creadorId= req.user.id;
-    const newQuiz= new Quiz({titulo, descripcion ,preguntas, creador:creadorId})
-    await newQuiz.save();
+    //Valido cada pregunta de mi array preguntas
+    for (const pregunta of preguntas) {
+        if (!pregunta.pregunta || !pregunta.opciones || pregunta.opciones.length < 2) {
+            res.status(400).json({ error: "Each question needs text and at least two options" });
+            return;
+        }
 
-    res.status(201).json({message: 'Quiz created successfully'});
+        if (!pregunta.opciones.includes(pregunta.rtaCorrecta)) {
+        res.status(400).json({
+            error: `The correct answer "${pregunta.rtaCorrecta}" is not among the options in question "${pregunta.pregunta}"`,
+        });
+        return;
+        }
+    }
+
+    try {
+        const creadorId = req.user.id;
+        const newQuiz = new Quiz({ titulo, descripcion, preguntas, creador: creadorId });
+        await newQuiz.save();
+
+        res.status(201).json({ message: 'Quiz created successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error creating the quiz" });
+    }
 }
 
 //---Controlador para mostrar todos los quizzes
@@ -69,11 +88,11 @@ export const updateQuiz= async (req: Request, res: Response)=>{
             { new: true, runValidators: true }    //devuelve el documento actualizado y valida el esquema
         );
 
-    if (!updatedQuiz) {
-      return res.status(404).json({ message: 'Quiz not found or not authorized' });
-    }
+        if (!updatedQuiz) {
+        return res.status(404).json({ message: 'Quiz not found or not authorized' });
+        }
 
-    res.status(200).json({ message: 'Quiz updated successfully', quiz: updatedQuiz });
+        res.status(200).json({ message: 'Quiz updated successfully', quiz: updatedQuiz });
 
     } catch (error) {
         console.error(error);
@@ -90,11 +109,11 @@ export const deleteQuiz= async (req:Request, res: Response)=>{
         const deletedQuiz= await Quiz.findOneAndDelete(
             { _id: quizId, creador: creadorId }
         )
-    if (!deletedQuiz) {
-        return res.status(404).json({ message: 'Quiz not found or not authorized' });
-    }
+        if (!deletedQuiz) {
+            return res.status(404).json({ message: 'Quiz not found or not authorized' });
+        }
 
-    res.status(200).json({ message: 'Quiz deleted successfully'});
+        res.status(200).json({ message: 'Quiz deleted successfully'});
 
     } catch (error) {
         console.error(error);
