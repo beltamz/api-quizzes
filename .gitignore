@@ -1,10 +1,9 @@
-# dependencies
-/node_modules
+node_modules/
 
-# production
-/build
+dist/
+build/
 
-# misc
+.env
 .DS_Store
 .env.local
 .env.development.local
