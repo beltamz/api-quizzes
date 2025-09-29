@@ -9,17 +9,16 @@ export default function Login({ setToken, setUser }) {
   const [password, setPassword] = useState("");
   const [mensaje, setMensaje] = useState("");
   const navigate = useNavigate();
-
   const [isDisabled, setIsDisabled] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
 
-  // Redirige si ya hay token
+  // Si la sesion ya estaba iniciada, redirige a mis quizzes
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) navigate("/quizzes");
   }, [navigate]);
 
-  // Cuenta regresiva del bloqueo
+  //Cuenta regresiva del bloqueo
   useEffect(() => {
     if (timeLeft === 0) {
       setIsDisabled(false);

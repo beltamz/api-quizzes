@@ -34,7 +34,7 @@ export default function Register() {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      background: "linear-gradient(135deg, #F3722C, #F8961E, #F9844A)", // mismo degradado que login
+      background: "linear-gradient(135deg, #F3722C, #F8961E, #F9844A)", 
       fontFamily: "Comic Sans MS, cursive",
     }}
   >
@@ -43,7 +43,7 @@ export default function Register() {
         width: 400,
         p: 5,
         borderRadius: 3,
-        backgroundColor: "#F9C74F", // formulario más claro para resaltar
+        backgroundColor: "#F9C74F", 
         boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
         textAlign: "center",
       }}

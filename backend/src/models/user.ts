@@ -8,7 +8,7 @@ export interface IUser extends Document {
   loginAttempts: number;
   lockUntil: Date | null
 }
-
+//Elementos de usuario
 const UserSchema = new mongoose.Schema({
     nombre: {
         type: String,

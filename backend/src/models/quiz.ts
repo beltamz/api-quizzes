@@ -1,5 +1,5 @@
 import mongoose, {Schema, Document} from "mongoose";
-
+//Elementos de mi array pregunta 
 const QuestionSchema= new mongoose.Schema({
     pregunta: {
         type: String,
@@ -26,6 +26,7 @@ export interface IntQuiz extends Document {
   preguntas: typeof QuestionSchema[];
 }
 
+//Elementos de cada quiz
 const QuizSchema= new mongoose.Schema({
     titulo:{
         type: String,
