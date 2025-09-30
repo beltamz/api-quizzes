@@ -9,7 +9,7 @@ import path from "path";
 const app= express()
 
 app.use(cors({
-    origin: true, //! frontend local
+    origin: true, 
     credentials: true,
 }));
 
