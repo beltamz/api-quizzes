@@ -16,7 +16,7 @@ export default function QuizDetail() {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.get(
-          `https://api-quizzes.onrender.com/api/quizzes/show/${id}`,
+          `${process.env.REACT_APP_API_URL}/api/quizzes/show/${id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setQuiz(res.data);

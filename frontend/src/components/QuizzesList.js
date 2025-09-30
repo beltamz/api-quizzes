@@ -24,7 +24,7 @@ function QuizzesList({ token }) {
     if (!window.confirm("¿Estás segura de que quieres eliminar este quiz?")) return;
 
     try {
-      await axios.delete(`https://api-quizzes.onrender.com/api/quizzes/delete/${quizId}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/quizzes/delete/${quizId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

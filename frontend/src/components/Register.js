@@ -25,7 +25,7 @@ export default function Register({ token }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://api-quizzes.onrender.com/api/usuarios/register", {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/usuarios/register`, {
         nombre,
         apellido,
         email,
