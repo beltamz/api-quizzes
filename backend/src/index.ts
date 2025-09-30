@@ -31,9 +31,9 @@ app.get("*", (req: Request, res: Response) => {
 connectDB()
 
 //ruta que lee formato json
-app.get("/", (req: Request,res: Response)=>{
+/*app.get("/", (req: Request,res: Response)=>{
     res.send("API funcionando");
-})
+})*/
 
 //Inicio de servidor
 const PORT = process.env.PORT || 3000
