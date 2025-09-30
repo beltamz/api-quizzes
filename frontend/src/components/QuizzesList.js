@@ -10,7 +10,7 @@ function QuizzesList({ token }) {
   useEffect(() => { 
     const fetchQuizzes = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/quizzes/list", { headers: { Authorization: `Bearer ${token}` } });
+        const res = await axios.get("https://api-quizzes.onrender.com/api/quizzes/list", { headers: { Authorization: `Bearer ${token}` } });
         setQuizzes(res.data);
       } catch (err) {
         console.error(err);
@@ -24,7 +24,7 @@ function QuizzesList({ token }) {
     if (!window.confirm("¿Estás segura de que quieres eliminar este quiz?")) return;
 
     try {
-      await axios.delete(`http://localhost:3000/api/quizzes/delete/${quizId}`, {
+      await axios.delete(`https://api-quizzes.onrender.com/api/quizzes/delete/${quizId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

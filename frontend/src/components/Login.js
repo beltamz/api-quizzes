@@ -42,7 +42,7 @@ export default function Login({ setToken, setUser }) {
     if (isDisabled) return;
 
     try {
-      const res = await axios.post("http://localhost:3000/api/usuarios/login", { email, password });
+      const res = await axios.post("https://api-quizzes.onrender.com/api/usuarios/login", { email, password });
       
       setToken(res.data.token);
       localStorage.setItem("token", res.data.token);

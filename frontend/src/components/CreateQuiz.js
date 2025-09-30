@@ -14,7 +14,7 @@ export default function CreateQuiz({ token, onQuizCreated }) {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:3000/api/quizzes/create",
+        "https://api-quizzes.onrender.com/api/quizzes/create",
         { titulo, descripcion, preguntas },
         { headers: { Authorization: `Bearer ${token}` } }
       );
