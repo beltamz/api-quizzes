@@ -58,22 +58,22 @@ git clone https://github.com/beltamz/api-quizzes.git
 cd api-quizzes
 
 ### 2. Backend
-# desde la raíz del repo
+#### desde la raíz del repo
 cd backend
 npm install
-# Para desarrollo:
+#### Para desarrollo:
 npm run dev        # (si usas ts-node-dev)
-# Para compilar a JS:
+#### Para compilar a JS:
 npm run build      # ejecuta tsc y genera dist/
-# Para ejecutar la versión compilada (producción local):
+#### Para ejecutar la versión compilada (producción local):
 npm run start      # ejecuta node dist/index.js
 
 ### 3. Frontend
 cd ../frontend
 npm install
-# Para desarrollo:
+#### Para desarrollo:
 npm start          # corre React en http://localhost:3001 (por defecto)
-# Para producción / generar build:
+#### Para producción / generar build:
 npm run build      # genera la carpeta frontend/build
 
 ### 4. Configurar variables de entorno del backend
