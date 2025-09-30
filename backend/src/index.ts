@@ -19,10 +19,10 @@ app.use(express.json())
 app.use('/api/usuarios', userRoutes)
 app.use('/api/quizzes', quizRoutes)
 
-app.use(express.static(path.join(__dirname, '../build')));
+app.use(express.static(path.join(__dirname, '../../frontend/build')));
 
-app.get('/*', (req: any, res: any) => {
-    res.sendFile(path.join(__dirname, '../build', 'index.html'));
+app.get(/^(?!\/api).*/, (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, "../../frontend/build", "index.html"));
 });
 
 connectDB()
