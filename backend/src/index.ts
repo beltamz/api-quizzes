@@ -9,7 +9,7 @@ import path from "path";
 const app= express()
 
 app.use(cors({
-    origin: 'http://localhost:3001', // frontend local
+    origin: true, //! frontend local
     credentials: true,
 }));
 

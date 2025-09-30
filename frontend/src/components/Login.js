@@ -42,7 +42,7 @@ export default function Login({ setToken, setUser }) {
     if (isDisabled) return;
 
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/usuarios/login`, { email, password });
+      const res = await axios.post('/api/usuarios/login', { email, password });
       
       setToken(res.data.token);
       localStorage.setItem("token", res.data.token);

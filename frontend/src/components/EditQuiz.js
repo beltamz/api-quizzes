@@ -15,7 +15,7 @@ export default function EditQuiz({ token }) {
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/quizzes/show/${id}`, {
+        const res = await axios.get(`/api/quizzes/show/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -52,7 +52,7 @@ export default function EditQuiz({ token }) {
     e.preventDefault();
     try {
       await axios.put(
-        `${process.env.REACT_APP_API_URL}/api/quizzes/edit/${id}`,
+        `/api/quizzes/edit/${id}`,
         { titulo, descripcion, preguntas },
         { headers: { Authorization: `Bearer ${token}` } }
       );
