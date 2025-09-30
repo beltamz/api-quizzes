@@ -1,10 +1,11 @@
+import path from "path";
 import 'dotenv/config';
 import express, {Request, Response} from 'express';
 import connectDB from './config/database';
 import userRoutes from './routes/userRoutes';
 import quizRoutes from './routes/quizRoutes';
 import cors from 'cors';
-import path from "path";
+
 
 const app= express()
 
