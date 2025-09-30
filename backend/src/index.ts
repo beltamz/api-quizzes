@@ -2,22 +2,21 @@ import 'dotenv/config';
 import express, {Request, Response} from 'express';
 import connectDB from './config/database';
 import userRoutes from './routes/userRoutes';
-import quizRoutes from './routes/quizRoutes'
+import quizRoutes from './routes/quizRoutes';
 import cors from 'cors';
 
 const app= express()
 
 app.use(cors({
-    origin: 'http://localhost:3001', //puerto en donde corre React
-    credentials: true
+    origin: 'http://localhost:3001', // frontend local
+    credentials: true,
 }));
 
 app.use(express.json())
+
+//Rutas
 app.use('/api/usuarios', userRoutes)
 app.use('/api/quizzes', quizRoutes)
-
-
-const PORT = process.env.PORT || 3000
 
 connectDB()
 
@@ -27,6 +26,8 @@ app.get("/", (req: Request,res: Response)=>{
 })
 
 //Inicio de servidor
+const PORT = process.env.PORT || 3000
+
 app.listen(PORT, ()=>{
     console.log(`Servidor en http://localhost:${PORT}`);
 })
