@@ -4,6 +4,7 @@ import connectDB from './config/database';
 import userRoutes from './routes/userRoutes';
 import quizRoutes from './routes/quizRoutes';
 import cors from 'cors';
+import path from "path";
 
 const app= express()
 
@@ -17,6 +18,12 @@ app.use(express.json())
 //Rutas
 app.use('/api/usuarios', userRoutes)
 app.use('/api/quizzes', quizRoutes)
+
+app.use(express.static(path.join(__dirname, '../build')));
+
+app.get('/*', (req: any, res: any) => {
+    res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
 
 connectDB()
 
